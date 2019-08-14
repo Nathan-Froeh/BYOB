@@ -24,3 +24,5 @@
 // get weakest pokemon that is weak against specified type
 
 
+// localhost3000/add/type
+// add a new pokemon for specified type

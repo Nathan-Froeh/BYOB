@@ -19,3 +19,6 @@ get strongest pokemon that is weak against specified type
 
 localhost3000/advantage/type?weakest
 get weakest pokemon that is weak against specified type
+
+localhost3000/add/type
+add a new pokemon for specified type
