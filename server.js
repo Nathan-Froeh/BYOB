@@ -1,26 +1,26 @@
 
 
-// localhost3000/type
+// localhost3000/:id
 // id will be type id
 // get all pokemon by type
 
 
-// localhost3000/type?strongest
+// localhost3000/:id?strongest
 // get strongest pokemon by type
 
 
-// localhost3000/type?weakest 
+// localhost3000/:id?weakest 
 // will return weakest pokemon for specified type
 
 
-// localhost/advantage/type
+// localhost/advantage/:id
 // get all pokemon that are weak against specified type
 
 
-// localhost/advantage/type?strongest
+// localhost/advantage/:id?strongest
 // get strongest pokemon that is weak against specified type
 
-// localhost/advantage/type?weakest
+// localhost/advantage/:id?weakest
 // get weakest pokemon that is weak against specified type
 
 
@@ -28,5 +28,8 @@
 // add a new type of pokemon
 
 
-// localhost3000/type/newpokemon
+// localhost3000/:id/newpokemon
 // add new pokemon to specified type
+
+// localhost3000/remove
+// removes a pokemon or a type
