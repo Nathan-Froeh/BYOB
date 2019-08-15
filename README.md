@@ -5,27 +5,27 @@ Build Your Own Backend
 /api/v1/:id
 will return pokemon by type
 
-localhost3000/:id?strongest 
+/api/v1/:id?strongest
 will return strongest pokemon for specified type
 
-localhost3000/:id?weakest 
+/api/v1/:id?weakest
 will return weakest pokemon for specified type
 
-localhost3000/advantage/:id
+/api/v1/advantage/:id
 get all pokemon that are weak against specified type
 
-localhost3000/advantage/:id?strongest
+/api/v1/advantage/:id?strongest
 get strongest pokemon that is weak against specified type
 
-localhost3000/advantage/:id?weakest
+/api/v1/advantage/:id?weakest
 get weakest pokemon that is weak against specified type
 
-localhost3000/newtype
+/api/v1/newtype
 add a new type of pokemon
 
-localhost3000/:id/newpokemon
+/api/v1/newpokemon
 add new pokemon to specified type
 
 
-localhost3000/remove
+/api/v1
 removes a pokemon or a type
