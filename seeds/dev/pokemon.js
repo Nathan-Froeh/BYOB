@@ -6,6 +6,7 @@ exports.seed = knex => {
   const types = [
     {name: 'Normal', good_against: 'Ghost'},
     {name: 'Fighting', good_against: 'Normal'},
+    {name: 'Poison', good_against: 'Fairy'},
     {name: 'Ground', good_against: 'Electric'},
     {name: 'Rock', good_against: 'Ice'},
     {name: 'Bug', good_against: 'Psychic'},
