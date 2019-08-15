@@ -4,7 +4,6 @@ exports.up = function(knex) {
   return Promise.all([
     knex.schema.createTable('type', table => {
       table.increments('id').primary()
-      table.string('id')
       table.string('name')
       table.string('good against')
 
@@ -12,7 +11,6 @@ exports.up = function(knex) {
     }),
     knex.schema.createTable('pokemon', table => {
       table.increments('id').primary()
-      table.string('id')
       table.string('name')
       table.string('hp')
       table.string('attack')
