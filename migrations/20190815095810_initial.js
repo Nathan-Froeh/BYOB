@@ -27,5 +27,8 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  
+  return Promise.all([
+    knex.dropTable('type'),
+    knex.dropTable('pokemon')
+  ])
 };
