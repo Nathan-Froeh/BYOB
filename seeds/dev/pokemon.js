@@ -1,6 +1,7 @@
 const data = require('../../data');
 
 
+
 exports.seed = knex => {
 
   const types = [
@@ -21,13 +22,19 @@ exports.seed = knex => {
     {name: 'Fairy', good_against: 'Fighting'}
   ]
 
+  const addType = (async pokeType => {
+    await knex('type').insert({ name: pokeType.name, good_against: pokeType.good_against },'id')
+  })
+
   return knex('pokemon').del()
     .then(() => knex('type').del())
     .then(() => {
-      return Promise.all([
-        types.forEach(pokeType => {
-          console.log(pokeType)
-          knex('type').insert({ name: pokeType.name, good_against: pokeType.good_against },'id')
+      // const typePromises = []
+      //  Promise.all([
+        // types.forEach(pokeType => {
+          // console.log(pokeType)
+          // addType(pokeType)
+          return knex('type').insert(types)
 
             // .then(typeId => {
             //   // console.log(typeId)
@@ -54,9 +61,9 @@ exports.seed = knex => {
 
             .then(() => console.log('Database was seeded!'))
             .catch(error => console.log(`Seed error ${error}`))
-        })
+        // })
 
-      ])
+      // ])
     })
     .catch(error => console.log(`Error while seeding ${error}`))
 };
