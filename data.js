@@ -1,4 +1,4 @@
-[
+const data = [
   {
     "id": 1,
     "name": "Bulbasaur",
@@ -1661,3 +1661,5 @@
     "Speed": 100
   }
 ]
+
+module.exports = data;

@@ -1,8 +1,13 @@
-
+const express = require('express');
+const app = express();
+const data = require('./data')
 
 // localhost3000/:id
 // id will be type id
 // get all pokemon by type
+app.get('/api/v1/:id', (request, response) => {
+  
+})
 
 
 // localhost3000/:id?strongest

@@ -2,7 +2,7 @@
 Build Your Own Backend
 
 ## Endpoints
-localhost3000/:id
+/api/v1/:id
 will return pokemon by type
 
 localhost3000/:id?strongest 
