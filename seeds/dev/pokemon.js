@@ -34,7 +34,7 @@ exports.seed = knex => {
         // types.forEach(pokeType => {
           // console.log(pokeType)
           // addType(pokeType)
-          return knex('type').insert(types)
+          return knex('type').insert(types, 'id')
 
             // .then(typeId => {
             //   // console.log(typeId)
