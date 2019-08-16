@@ -29,41 +29,34 @@ exports.seed = knex => {
   return knex('pokemon').del()
     .then(() => knex('type').del())
     .then(() => {
-      // const typePromises = []
-      //  Promise.all([
-        // types.forEach(pokeType => {
-          // console.log(pokeType)
-          // addType(pokeType)
           return knex('type').insert(types, 'id')
-
-            // .then(typeId => {
-            //   // console.log(typeId)
-            //   return knex('pokemon').insert(() => {
-            //     const creatures = data.filter(pokemon => {
-            //       // console.log(pokeType)
-            //       if(pokemon.type === pokeType.name) {
-            //         // console.log(pokeType, pokemon)
-            //         return pokemon
-            //       }
-            //     })
-            //     return creatures.map(pokemon => {
-            //       return {
-            //         type_id: typeId[0],
-            //         name: pokemon.name,
-            //         hp: pokemon.HP,
-            //         attack: pokemon.Attack,
-            //         defense: pokemon.Defense,
-            //         speed: pokemon.Speed
-            //       }
-            //     })
-            //   })
-            // })
+    })
+            .then(() => {
+              const typePromises = []
+              // console.log(typeId)
+              data.forEach(pokemon => {
+                const type = pokemon.type
+                typePromises.push(fillType(knex, pokemon, type))
+              })
+              return Promise.all(typePromises)
+            })
 
             .then(() => console.log('Database was seeded!'))
             .catch(error => console.log(`Seed error ${error}`))
-        // })
-
-      // ])
-    })
     .catch(error => console.log(`Error while seeding ${error}`))
 };
+
+const fillType = (knex, pokemon, type) => {
+  return knex('type').where('name', type).first()
+    .then(typeName => {
+      console.log(typeName)
+      return knex('pokemon').insert({
+            type_id: typeName.id,
+            name: pokemon.name,
+            hp: pokemon.HP,
+            attack: pokemon.Attack,
+            defense: pokemon.Defense,
+            speed: pokemon.Speed
+      })
+      })
+}
