@@ -4,29 +4,14 @@ const app = express();
 const data = require('./data');
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
-// const bodyParser = require('body-parser');
-app.set('port', process.env.PORT || 3000)
-// const Pool = require('pg').Pool
-// const pool = new Pool({
-//   user: 'nathan',
-//   host: 'localhost',
-//   database: 'pokemon',
-//   password: 'password',
-//   port: 5432,
-// })
 
-app.use(express.json())
-app.use(express.static('public'))
-// const getUsers = (request, response) => {
-//   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-//     if (error) {
-//       throw error
-//     }
-//     response.status(200).json(results.rows)
-//   })
-// }
+app.set('port', process.env.PORT || 3000);
+app.use(express.json());
+app.use(express.static('public'));
 
-// SELECT * FROM pokemon WHERE type_id='1437';
+app.listen(app.get('port'), () => {
+  console.log(`App running on port ${app.get('port')}.`)
+})
 
 app.get('/', (request, response) => {
   database('type').select()
@@ -36,11 +21,7 @@ app.get('/', (request, response) => {
     .catch(error => {
       response.status(500).json({error})
     })
-})
-
-app.listen(app.get('port'), () => {
-  console.log(`App running on port ${app.get('port')}.`)
-})
+});
 
 // localhost3000/:id
 // id will be type id
