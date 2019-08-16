@@ -1,3 +1,4 @@
+const environment = process.env.NODE_ENV || 'development';
 const express = require('express');
 const app = express();
 const data = require('./data');
@@ -18,14 +19,16 @@ app.use(
     extended: true,
   })
 )
-const getUsers = (request, response) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
-}
+// const getUsers = (request, response) => {
+//   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+//     if (error) {
+//       throw error
+//     }
+//     response.status(200).json(results.rows)
+//   })
+// }
+
+// SELECT * FROM pokemon WHERE type_id='1437';
 
 app.get('/', (request, response) => {
   pool.query('SELECT * FROM type', (error, results) => {
