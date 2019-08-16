@@ -13,6 +13,10 @@ app.listen(app.get('port'), () => {
   console.log(`App running on port ${app.get('port')}.`)
 })
 
+// look up CTE or common table expresion
+// no nesting 
+// cant be reused and are slow
+
 app.get('/', (request, response) => {
   database('type').select()
     .then((types) => {
@@ -27,7 +31,19 @@ app.get('/', (request, response) => {
 // id will be type id
 // get all pokemon by type
 app.get('/api/v1/:id', (request, response) => {
+  const { id } = request.params;
 
+  database('type').select('id').where({name: id})
+  .then((id) => {
+    return id[0].id
+  })
+  .then((id) => {
+    database('pokemon').select().where({type_id: id})
+    .then((pokemon) => response.status(200).json(pokemon))
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
 })
 
 
