@@ -1,6 +1,47 @@
+const environment = process.env.NODE_ENV || 'development';
 const express = require('express');
 const app = express();
-const data = require('./data')
+const data = require('./data');
+const bodyParser = require('body-parser');
+const port = 3000;
+const Pool = require('pg').Pool
+const pool = new Pool({
+  user: 'nathan',
+  host: 'localhost',
+  database: 'pokemon',
+  password: 'password',
+  port: 5432,
+})
+
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
+// const getUsers = (request, response) => {
+//   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+//     if (error) {
+//       throw error
+//     }
+//     response.status(200).json(results.rows)
+//   })
+// }
+
+// SELECT * FROM pokemon WHERE type_id='1437';
+
+app.get('/', (request, response) => {
+  pool.query('SELECT * FROM type', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+})
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
+})
 
 // localhost3000/:id
 // id will be type id
