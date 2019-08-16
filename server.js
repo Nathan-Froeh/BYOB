@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
-const data = require('./data')
+const data = require('./data');
+const bodyParser = require('body-parser');
+const port = 3001;
 
 // localhost3000/:id
 // id will be type id
