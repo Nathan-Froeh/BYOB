@@ -4,6 +4,13 @@ const data = require('./data');
 const bodyParser = require('body-parser');
 const port = 3001;
 
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
+
 // localhost3000/:id
 // id will be type id
 // get all pokemon by type
