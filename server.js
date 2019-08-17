@@ -78,12 +78,12 @@ app.get('/api/v1/:poketype/weakest', (request, response) => {
     return id[0].id
   })
   .then((id) => {
-    database('pokemon').select().where({type_id: id})
-      .then(pokemon => {
-        return pokemon.sort((a, b) => a.attack - b.attack)[0]
-      })
-      .then((pokemon) => response.status(200).json(pokemon))
+    return database('pokemon').select().where({type_id: id})
   })
+  .then(pokemon => {
+    return pokemon.sort((a, b) => a.attack - b.attack)[0]
+  })
+  .then((pokemon) => response.status(200).json(pokemon))
   .catch(error => {
     response.status(500).json({error})
   })
