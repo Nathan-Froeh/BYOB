@@ -30,10 +30,10 @@ app.get('/', (request, response) => {
 // localhost3000/:id
 // id will be type id
 // get all pokemon by type
-app.get('/api/v1/:id', (request, response) => {
-  const { id } = request.params;
+app.get('/api/v1/:poketype', (request, response) => {
+  const { poketype } = request.params;
 
-  database('type').select('id').where({name: id})
+  database('type').select('id').where({name: poketype})
   .then((id) => {
     return id[0].id
   })
@@ -49,31 +49,46 @@ app.get('/api/v1/:id', (request, response) => {
 
 // localhost3000/:id?strongest
 // get strongest pokemon by type
-app.get('/api/v1/:id?strongest', (request, response) => {
-  
+app.get('/api/v1/:poketype/strongest/', (request, response) => {
+  const { poketype } = request.params;
+
+  database('type').select('id').where({name: poketype})
+  .then((id) => {
+    return id[0].id
+  })
+  .then((id) => {
+    database('pokemon').select().where({type_id: id})
+      .then(pokemon => {
+        return pokemon.sort((a, b) => b.attack - a.attack)[0]
+      })
+      .then((pokemon) => response.status(200).json(pokemon))
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
 })
 
 // localhost3000/:id?weakest 
 // will return weakest pokemon for specified type
-app.get('/api/v1/:id?weakest', (request, response) => {
+app.get('/api/v1/:poketype?weakest', (request, response) => {
   
 })
 
 // localhost/advantage/:id
 // get all pokemon that are weak against specified type
-app.get('/api/v1/advantage/:id', (request, response) => {
+app.get('/api/v1/advantage/:poketype', (request, response) => {
   
 })
 
 // localhost/advantage/:id?strongest
 // get strongest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:id?strongest', (request, response) => {
+app.get('/api/v1/advantage/:poketype?strongest', (request, response) => {
   
 })
 
 // localhost/advantage/:id?weakest
 // get weakest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:id?weakest', (request, response) => {
+app.get('/api/v1/advantage/:poketype?weakest', (request, response) => {
   
 })
 
