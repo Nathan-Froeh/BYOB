@@ -34,13 +34,11 @@ app.get('/api/v1/:poketype', (request, response) => {
   const { poketype } = request.params;
 
   database('type').select('id').where({name: poketype})
-  .then((id) => {
-    return id[0].id
-  })
-  .then((id) => {
+  .then((id) => id[0].id)
+  .then((id) => (
     database('pokemon').select().where({type_id: id})
-    .then((pokemon) => response.status(200).json(pokemon))
-  })
+  ))
+  .then((pokemon) => response.status(200).json(pokemon))
   .catch(error => {
     response.status(500).json({error})
   })
@@ -53,15 +51,13 @@ app.get('/api/v1/:poketype/strongest', (request, response) => {
   const { poketype } = request.params;
 
   database('type').select('id').where({name: poketype})
-  .then((id) => {
-    return id[0].id
-  })
-  .then((id) => {
-    return database('pokemon').select().where({type_id: id})
-  })
-  .then(pokemon => {
-    return pokemon.sort((a, b) => b.attack - a.attack)[0]
-  })
+  .then((id) => id[0].id)
+  .then((id) => (
+    database('pokemon').select().where({type_id: id})
+  ))
+  .then(pokemon => (
+   pokemon.sort((a, b) => b.attack - a.attack)[0]
+  ))
   .then((pokemon) => response.status(200).json(pokemon))
   .catch(error => {
     response.status(500).json({error})
@@ -74,15 +70,13 @@ app.get('/api/v1/:poketype/weakest', (request, response) => {
   const { poketype } = request.params;
 
   database('type').select('id').where({name: poketype})
-  .then((id) => {
-    return id[0].id
-  })
-  .then((id) => {
-    return database('pokemon').select().where({type_id: id})
-  })
-  .then(pokemon => {
-    return pokemon.sort((a, b) => a.attack - b.attack)[0]
-  })
+  .then((id) => id[0].id)
+  .then((id) => (
+    database('pokemon').select().where({type_id: id})
+  ))
+  .then(pokemon => (
+    pokemon.sort((a, b) => a.attack - b.attack)[0]
+  ))
   .then((pokemon) => response.status(200).json(pokemon))
   .catch(error => {
     response.status(500).json({error})
@@ -95,12 +89,12 @@ app.get('/api/v1/advantage/:poketype', (request, response) => {
   const { poketype } = request.params;
 
   database('type').select('good_against').where({name: poketype})
-  .then((id) => {
-    return database('type').select().where({name: id[0].good_against})
-  })
-  .then((res) => {
-    return database('pokemon').select().where({type_id: res[0].id})
-  })
+  .then((id) => (
+    database('type').select().where({name: id[0].good_against})
+  ))
+  .then((res) => (
+    database('pokemon').select().where({type_id: res[0].id})
+  ))
   .then((id) => {
     response.status(200).json(id)
   })
