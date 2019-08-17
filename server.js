@@ -4,29 +4,18 @@ const app = express();
 const data = require('./data');
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
-// const bodyParser = require('body-parser');
-app.set('port', process.env.PORT || 3000)
-// const Pool = require('pg').Pool
-// const pool = new Pool({
-//   user: 'nathan',
-//   host: 'localhost',
-//   database: 'pokemon',
-//   password: 'password',
-//   port: 5432,
-// })
 
-app.use(express.json())
-app.use(express.static('public'))
-// const getUsers = (request, response) => {
-//   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-//     if (error) {
-//       throw error
-//     }
-//     response.status(200).json(results.rows)
-//   })
-// }
+app.set('port', process.env.PORT || 3000);
+app.use(express.json());
+app.use(express.static('public'));
 
-// SELECT * FROM pokemon WHERE type_id='1437';
+app.listen(app.get('port'), () => {
+  console.log(`App running on port ${app.get('port')}.`)
+})
+
+// look up CTE or common table expresion
+// no nesting 
+// cant be reused and are slow
 
 app.get('/', (request, response) => {
   database('type').select()
@@ -36,47 +25,70 @@ app.get('/', (request, response) => {
     .catch(error => {
       response.status(500).json({error})
     })
-})
-
-app.listen(app.get('port'), () => {
-  console.log(`App running on port ${app.get('port')}.`)
-})
+});
 
 // localhost3000/:id
 // id will be type id
 // get all pokemon by type
-app.get('/api/v1/:id', (request, response) => {
+app.get('/api/v1/:poketype', (request, response) => {
+  const { poketype } = request.params;
 
+  database('type').select('id').where({name: poketype})
+  .then((id) => {
+    return id[0].id
+  })
+  .then((id) => {
+    database('pokemon').select().where({type_id: id})
+    .then((pokemon) => response.status(200).json(pokemon))
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
 })
 
 
 // localhost3000/:id?strongest
 // get strongest pokemon by type
-app.get('/api/v1/:id?strongest', (request, response) => {
-  
+app.get('/api/v1/:poketype/strongest/', (request, response) => {
+  const { poketype } = request.params;
+
+  database('type').select('id').where({name: poketype})
+  .then((id) => {
+    return id[0].id
+  })
+  .then((id) => {
+    database('pokemon').select().where({type_id: id})
+      .then(pokemon => {
+        return pokemon.sort((a, b) => b.attack - a.attack)[0]
+      })
+      .then((pokemon) => response.status(200).json(pokemon))
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
 })
 
 // localhost3000/:id?weakest 
 // will return weakest pokemon for specified type
-app.get('/api/v1/:id?weakest', (request, response) => {
+app.get('/api/v1/:poketype?weakest', (request, response) => {
   
 })
 
 // localhost/advantage/:id
 // get all pokemon that are weak against specified type
-app.get('/api/v1/advantage/:id', (request, response) => {
+app.get('/api/v1/advantage/:poketype', (request, response) => {
   
 })
 
 // localhost/advantage/:id?strongest
 // get strongest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:id?strongest', (request, response) => {
+app.get('/api/v1/advantage/:poketype?strongest', (request, response) => {
   
 })
 
 // localhost/advantage/:id?weakest
 // get weakest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:id?weakest', (request, response) => {
+app.get('/api/v1/advantage/:poketype?weakest', (request, response) => {
   
 })
 
