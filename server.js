@@ -213,13 +213,13 @@ app.delete('/api/v1', (request, response) => {
   database(type).select().where({name: name})
     .then(res => {
       console.log(res)
-    // if(res.length > 0) {
+    if(res.length > 0) {
       database(type).where({name: name}).del()
         .then((res) => response.status(202).json(res))
         .then(error => response.status(500).json(error))
-    // } else {
-    //   response.status(400).json(`${type} with name ${name} does not exist`)
-    // }
+    } else {
+      response.status(400).json(`${type} with name ${name} does not exist`)
+    }
   })
   
 })
