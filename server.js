@@ -169,7 +169,7 @@ app.post('/api/v1/newtype', (request, response) => {
   const id = 51;
   const { name, good_against } = request.body;
   const newType = {id:id, name: name, good_against: good_against};
-  
+
   if(typeof name !== 'string' || name.length === 0) {
     response.status(400)
       .json('Body value of <name> should be a string greater than 0')
@@ -204,28 +204,46 @@ app.post('/api/v1/newpokemon', (request, response) => {
     defense: defense,
     speed: speed
   };
-  console.log(newPokemon)
 
-  database('pokemon').select().where({name: name})
-    .then(currentPokemon => {
-      console.log(currentPokemon.length)
-      if(currentPokemon.length === 0) {
-    database('type').select().where({name: type})
-    .then((res) => {
-      if(res.length) {
-        database('pokemon').insert(newPokemon)
-        .then(() => database('pokemon').select().where({name: name}))
-        .then(res => response.status(201).json(res))
-        .catch(error => response.status(500).json(error))
-      } else {
-        response.status(404).json('type does not exist')
-      }
-    })
+  if(typeof name !== 'string' || name.length === 0) {
+    response.status(400)
+      .json('Body value of <name> should be a string greater than 0')
+  } else if (typeof type !== 'string' || type.length === 0) {
+    response.status(400)
+      .json('Body value of <type> should be a string greater than 0')
+  } else if (typeof hp !== 'string' || hp.length === 0) {
+    response.status(400)
+      .json('Body value of <hp> should be a string greater than 0')
+  } else if (typeof attack !== 'string' || attack.length === 0) {
+    response.status(400)
+      .json('Body value of <attack> should be a string greater than 0')
+  } else if (typeof defense !== 'string' || defense.length === 0) {
+    response.status(400)
+      .json('Body value of <defense> should be a string greater than 0')
+  } else if (typeof speed !== 'string' || speed.length === 0) {
+    response.status(400)
+      .json('Body value of <speed> should be a string greater than 0')
   } else {
-    response.status(409).json(`Pokemon ${name} already exists`)
+    database('pokemon').select().where({name: name})
+      .then(currentPokemon => {
+        if(currentPokemon.length === 0) {
+          database('type').select().where({name: type})
+            .then((res) => {
+              if(res.length) {
+                database('pokemon').insert(newPokemon)
+                  .then(() => database('pokemon').select().where({name: name}))
+                  .then(res => response.status(201).json(res))
+                  .catch(error => response.status(500).json(error))
+              } else {
+                response.status(404).json('type does not exist')
+              }
+          })
+        } else {
+          response.status(409).json(`Pokemon ${name} already exists`)
+        }
+      })
   }
-
-})})
+})
 
 // localhost3000/remove
 // removes a pokemon or a type
