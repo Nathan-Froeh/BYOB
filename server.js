@@ -163,7 +163,14 @@ app.post('/api/v1/newtype', (request, response) => {
 // localhost3000/:id/newpokemon
 // add new pokemon to specified type
 app.post('/api/v1/newpokemon', (request, response) => {
-  
+  const id = 51;
+  const newpokemon = {type_id:id, ...request.body};
+  console.log(request.body)
+  // check if type exists before running
+  database('pokemon').insert(newpokemon)
+  .then(() => database('pokemon').select().where({name: request.body.name}))
+    .then(res => response.status(201).json(res))
+    .catch(error => response.status(500).json(error))
 })
 
 // localhost3000/remove
