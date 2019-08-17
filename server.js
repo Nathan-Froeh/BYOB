@@ -148,7 +148,16 @@ app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
 // localhost3000/newtype
 // add a new type of pokemon
 app.post('/api/v1/newtype', (request, response) => {
-  
+  const id = 51;
+  const { name, good_against } = request.body;
+  const newType = {id:id, name: name, good_against: good_against};
+  console.log(request.body)
+  database('type').insert(newType)
+  .then(() => database('type').select().where({name: name}))
+    .then(res => response.status(201).json(res))
+    .catch(error => response.status(500).json(error))
+  // must check for existing type
+  // must add error for not enough entry data
 })
 
 // localhost3000/:id/newpokemon
