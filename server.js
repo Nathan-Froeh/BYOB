@@ -169,18 +169,26 @@ app.post('/api/v1/newtype', (request, response) => {
   const id = 51;
   const { name, good_against } = request.body;
   const newType = {id:id, name: name, good_against: good_against};
-  console.log(request.body)
-  database('type').select().where({name: name})
-  .then((res) => {
-    if(res.length === 0) {
-  database('type').insert(newType)
-  .then(() => database('type').select().where({name: name}))
-    .then(res => response.status(201).json(res))
-    .catch(error => response.status(500).json(error))
+  
+  if(typeof name !== 'string' || name.length === 0) {
+    response.status(400)
+      .json('Body value of <name> should be a string greater than 0')
+  } else if (typeof good_against !== 'string' || good_against.length === 0) {
+    response.status(400)
+      .json('Body value of <good_against> should be a string greater than 0')
   } else {
-    response.status(409).json('type already exists')
+    database('type').select().where({name: name})
+      .then((res) => {
+        if(res.length === 0) {
+          database('type').insert(newType)
+            .then(() => database('type').select().where({name: name}))
+            .then(res => response.status(201).json(res))
+            .catch(error => response.status(500).json(error))
+        } else {
+          response.status(409).json('type already exists')
+        }
+      })
   }
-})
 })
 
 // localhost3000/:id/newpokemon
