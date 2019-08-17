@@ -249,17 +249,22 @@ app.post('/api/v1/newpokemon', (request, response) => {
 // removes a pokemon or a type
 app.delete('/api/v1', (request, response) => {
   const {name, type} = request.body;
-
-  database(type).select().where({name: name})
-    .then(res => {
-      console.log(res)
-    if(res.length > 0) {
-      database(type).where({name: name}).del()
-        .then((res) => response.status(202).json(res))
-        .then(error => response.status(500).json(error))
-    } else {
-      response.status(410).json(`${type} with name ${name} does not exist`)
-    }
-  })
-  
+  if(typeof name !== 'string' || name.length === 0) {
+    response.status(400)
+      .json('Body value of <name> should be a string greater than 0')
+  } else if (typeof type !== 'string' || type.length === 0) {
+    response.status(400)
+      .json('Body value of <type> should be a string greater than 0')
+  } else {
+    database(type).select().where({name: name})
+      .then(res => {
+        if(res.length > 0) {
+          database(type).where({name: name}).del()
+            .then((res) => response.status(202).json(res))
+            .then(error => response.status(500).json(error))
+        } else {
+          response.status(410).json(`${type} with name ${name} does not exist`)
+        }
+      })
+  }
 })
