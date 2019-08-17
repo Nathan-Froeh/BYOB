@@ -43,7 +43,7 @@ app.get('/api/v1/:poketype', (request, response) => {
       response.status(500).json({error})
     })
   } else {
-    response.status(422).json('Missing pokemon <type> paramiter')
+    response.status(422).json('Invalid pokemon <type> paramiter')
   }
 })
 
@@ -66,7 +66,7 @@ app.get('/api/v1/:poketype/strongest', (request, response) => {
     response.status(500).json({error})
   })
 } else {
-  response.status(422).json('Missing pokemon <type> paramiter')
+  response.status(422).json('Invalid pokemon <type> paramiter')
 }
 })
 
@@ -88,7 +88,7 @@ app.get('/api/v1/:poketype/weakest', (request, response) => {
     response.status(500).json({error})
   })
 } else {
-  response.status(422).json('Missing pokemon <type> paramiter')
+  response.status(422).json('Invalid pokemon <type> paramiter')
 }
 })
 
@@ -111,7 +111,7 @@ app.get('/api/v1/advantage/:poketype', (request, response) => {
     response.status(500).json({error})
   })
 } else {
-  response.status(422).json('Missing pokemon <type> paramiter')
+  response.status(422).json('Invalid pokemon <type> paramiter')
 }
 })
 
@@ -135,7 +135,7 @@ app.get('/api/v1/advantage/:poketype/strongest', (request, response) => {
     response.status(500).json({error})
   })
 } else {
-  response.status(422).json('Missing pokemon <type> paramiter')
+  response.status(422).json('Invalid pokemon <type> paramiter')
 }
 })
 
@@ -159,7 +159,7 @@ app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
     response.status(500).json({error})
   })
 } else {
-  response.status(422).json('Missing pokemon <type> paramiter')
+  response.status(422).json('Invalid pokemon <type> paramiter')
 }
 })
 
@@ -178,7 +178,7 @@ app.post('/api/v1/newtype', (request, response) => {
     .then(res => response.status(201).json(res))
     .catch(error => response.status(500).json(error))
   } else {
-    response.status(400).json('type already exists')
+    response.status(409).json('type already exists')
   }
 })
 })
@@ -214,7 +214,7 @@ app.post('/api/v1/newpokemon', (request, response) => {
       }
     })
   } else {
-    response.status(400).json(`Pokemon ${name} already exists`)
+    response.status(409).json(`Pokemon ${name} already exists`)
   }
 
 })})
@@ -232,7 +232,7 @@ app.delete('/api/v1', (request, response) => {
         .then((res) => response.status(202).json(res))
         .then(error => response.status(500).json(error))
     } else {
-      response.status(400).json(`${type} with name ${name} does not exist`)
+      response.status(410).json(`${type} with name ${name} does not exist`)
     }
   })
   
