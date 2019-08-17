@@ -92,16 +92,30 @@ app.get('/api/v1/:poketype/weakest', (request, response) => {
 // localhost/advantage/:id
 // get all pokemon that are weak against specified type
 app.get('/api/v1/advantage/:poketype', (request, response) => {
-  
+  const { poketype } = request.params;
+
+  database('type').select('good_against').where({name: poketype})
+  .then((id) => {
+    return database('type').select().where({name: id[0].good_against})
+  })
+  .then((res) => {
+    return database('pokemon').select().where({type_id: res[0].id})
+  })
+  .then((id) => {
+    response.status(200).json(id)
+  })
+  .catch(error => {
+    response.status(500).json({error})
+  })
 })
 
-// localhost/advantage/:id?strongest
+// localhost/advantage/:id/strongest
 // get strongest pokemon that is weak against specified type
 app.get('/api/v1/advantage/:poketype/strongest', (request, response) => {
   
 })
 
-// localhost/advantage/:id?weakest
+// localhost/advantage/:id/weakest
 // get weakest pokemon that is weak against specified type
 app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
   
