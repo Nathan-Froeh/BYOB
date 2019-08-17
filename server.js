@@ -49,7 +49,7 @@ app.get('/api/v1/:poketype', (request, response) => {
 
 // localhost3000/:id?strongest
 // get strongest pokemon by type
-app.get('/api/v1/:poketype/strongest/', (request, response) => {
+app.get('/api/v1/:poketype/strongest', (request, response) => {
   const { poketype } = request.params;
 
   database('type').select('id').where({name: poketype})
@@ -70,7 +70,7 @@ app.get('/api/v1/:poketype/strongest/', (request, response) => {
 
 // localhost3000/:id?weakest 
 // will return weakest pokemon for specified type
-app.get('/api/v1/:poketype?weakest', (request, response) => {
+app.get('/api/v1/:poketype/weakest', (request, response) => {
   
 })
 
@@ -82,13 +82,13 @@ app.get('/api/v1/advantage/:poketype', (request, response) => {
 
 // localhost/advantage/:id?strongest
 // get strongest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:poketype?strongest', (request, response) => {
+app.get('/api/v1/advantage/:poketype/strongest', (request, response) => {
   
 })
 
 // localhost/advantage/:id?weakest
 // get weakest pokemon that is weak against specified type
-app.get('/api/v1/advantage/:poketype?weakest', (request, response) => {
+app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
   
 })
 
