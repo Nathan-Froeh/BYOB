@@ -145,9 +145,8 @@ app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
 })
 
 app.post('/api/v1/newtype', (request, response) => {
-  const id = 51;
   const { name, good_against } = request.body;
-  const newType = {id:id, name: name, good_against: good_against};
+  const newType = {name: name, good_against: good_against};
 
   if(typeof name !== 'string' || name.length === 0) {
     response.status(400)
@@ -171,7 +170,6 @@ app.post('/api/v1/newtype', (request, response) => {
 })
 
 app.post('/api/v1/newpokemon', (request, response) => {
-  const id = 51;
   const {type, name, hp, attack, defense, speed} = request.body;
   const newPokemon = {
     name: name,
@@ -206,10 +204,14 @@ app.post('/api/v1/newpokemon', (request, response) => {
           database('type').select().where({name: type})
             .then((res) => {
               if(res.length) {
-                database('pokemon').insert(newPokemon)
-                  .then(() => database('pokemon').select().where({name: name}))
-                  .then(res => response.status(201).json(res))
-                  .catch(error => response.status(500).json(error))
+                database('type').select('id').where({name: type})
+                  .then(typeId => {
+                    const Pokemon = {...newPokemon, type_id: typeId[0].id}
+                    database('pokemon').insert(Pokemon)
+                      .then(() => database('pokemon').select().where({name: name}))
+                      .then(res => response.status(201).json(res))
+                      .catch(error => response.status(500).json(error))
+                  })
               } else {
                 response.status(404).json('type does not exist')
               }
