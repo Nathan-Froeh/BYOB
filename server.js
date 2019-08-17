@@ -164,13 +164,30 @@ app.post('/api/v1/newtype', (request, response) => {
 // add new pokemon to specified type
 app.post('/api/v1/newpokemon', (request, response) => {
   const id = 51;
-  const newpokemon = {type_id:id, ...request.body};
-  console.log(request.body)
+  const {type, name, hp, attack, defense, speed} = request.body;
+  const newPokemon = {
+    name: name,
+    hp: hp,
+    attack: attack,
+    defense: defense,
+    speed: speed
+  };
+  console.log(newPokemon)
   // check if type exists before running
-  database('pokemon').insert(newpokemon)
-  .then(() => database('pokemon').select().where({name: request.body.name}))
-    .then(res => response.status(201).json(res))
-    .catch(error => response.status(500).json(error))
+  database('type').select().where({name: type})
+  .then((res) => {
+    if(res.length){
+      console.log(res)
+      
+      database('pokemon').insert(newPokemon)
+      .then(() => database('pokemon').select().where({name: name}))
+      .then(res => response.status(201).json(res))
+      .catch(error => response.status(500).json(error))
+    } else {
+      response.status(404).json('type does not exist')
+    }
+  
+  })
 })
 
 // localhost3000/remove
