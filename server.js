@@ -148,17 +148,78 @@ app.get('/api/v1/advantage/:poketype/weakest', (request, response) => {
 // localhost3000/newtype
 // add a new type of pokemon
 app.post('/api/v1/newtype', (request, response) => {
-  
+  const id = 51;
+  const { name, good_against } = request.body;
+  const newType = {id:id, name: name, good_against: good_against};
+  console.log(request.body)
+  // checkExisting('type', name)
+  database('type').select().where({name: name})
+  .then((res) => {
+    if(res.length === 0) {
+  database('type').insert(newType)
+  .then(() => database('type').select().where({name: name}))
+    .then(res => response.status(201).json(res))
+    .catch(error => response.status(500).json(error))
+  } else {
+    response.status(400).json('type already exists')
+  }
+  // must check for existing type
+  // must add error for not enough entry data
+})
 })
 
 // localhost3000/:id/newpokemon
 // add new pokemon to specified type
+// check if type exists before running
 app.post('/api/v1/newpokemon', (request, response) => {
-  
-})
+  const id = 51;
+  const {type, name, hp, attack, defense, speed} = request.body;
+  const newPokemon = {
+    name: name,
+    hp: hp,
+    attack: attack,
+    defense: defense,
+    speed: speed
+  };
+  console.log(newPokemon)
+  // if(checkExisting('pokemon', name) !== 0) {
+
+  database('pokemon').select().where({name: name})
+    .then(currentPokemon => {
+      console.log(currentPokemon.length)
+      if(currentPokemon.length === 0) {
+    database('type').select().where({name: type})
+    .then((res) => {
+      if(res.length) {
+        database('pokemon').insert(newPokemon)
+        .then(() => database('pokemon').select().where({name: name}))
+        .then(res => response.status(201).json(res))
+        .catch(error => response.status(500).json(error))
+      } else {
+        response.status(404).json('type does not exist')
+      }
+    })
+  } else {
+    response.status(400).json(`Pokemon ${name} already exists`)
+  }
+
+})})
 
 // localhost3000/remove
 // removes a pokemon or a type
 app.delete('/api/v1', (request, response) => {
+  const {name, type} = request.body;
+
+  database(type).select().where({name: name})
+    .then(res => {
+      console.log(res)
+    // if(res.length > 0) {
+      database(type).where({name: name}).del()
+        .then((res) => response.status(202).json(res))
+        .then(error => response.status(500).json(error))
+    // } else {
+    //   response.status(400).json(`${type} with name ${name} does not exist`)
+    // }
+  })
   
 })
