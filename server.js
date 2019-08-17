@@ -169,5 +169,11 @@ app.post('/api/v1/newpokemon', (request, response) => {
 // localhost3000/remove
 // removes a pokemon or a type
 app.delete('/api/v1', (request, response) => {
+  const {name, type} = request.body;
+  console.log(request.body)
+
+  database(type).where({name: name}).del()
+    .then((res) => response.status(202).json(res))
+    .then(error => response.status(500).json(error))
   
 })
