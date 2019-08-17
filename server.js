@@ -175,36 +175,39 @@ app.post('/api/v1/newpokemon', (request, response) => {
     speed: speed
   };
   console.log(newPokemon)
-  checkExisting('pokemon', name)
-  database('type').select().where({name: type})
-  .then((res) => {
-    if(res.length) {
-      database('pokemon').insert(newPokemon)
-      .then(() => database('pokemon').select().where({name: name}))
-      .then(res => response.status(201).json(res))
-      .catch(error => response.status(500).json(error))
-    } else {
-      response.status(404).json('type does not exist')
-    }
-  })
+  if(checkExisting('pokemon', name) !== 0) {
+    console.log('check pokemon', checkExisting('pokemon', name))
+    database('type').select().where({name: type})
+    .then((res) => {
+      if(res.length) {
+        database('pokemon').insert(newPokemon)
+        .then(() => database('pokemon').select().where({name: name}))
+        .then(res => response.status(201).json(res))
+        .catch(error => response.status(500).json(error))
+      } else {
+        response.status(404).json('type does not exist')
+      }
+    })
+  } else {
+    response.status(400).json(`Pokemon ${name} already exists`)
+  }
+
 })
 
 // localhost3000/remove
 // removes a pokemon or a type
 app.delete('/api/v1', (request, response) => {
   const {name, type} = request.body;
-  console.log(request.body)
-  if(checkExisting(type, name) === 0){
-    database(type).where({name: name}).del()
-      .then((res) => response.status(202).json(res))
-      .then(error => response.status(500).json(error))
-  } else {
-    response.status(400).json(`${type} with name ${name} does not exist`)
-  }
+
+  database(type).select().where({name: name})
+    .then(res => {
+    if(res.length > 0) {
+      database(type).where({name: name}).del()
+        .then((res) => response.status(202).json(res))
+        .then(error => response.status(500).json(error))
+    } else {
+      response.status(400).json(`${type} with name ${name} does not exist`)
+    }
+  })
   
 })
-
-const checkExisting = (type, name) => {
-  database(type).select().where({name: name})
-    .then(res => res.length)
-}
