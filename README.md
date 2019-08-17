@@ -2,22 +2,22 @@
 Build Your Own Backend
 
 ## Endpoints
-/api/v1/:id
-will return pokemon by type
+/api/v1/:poketype
+will return all pokemon by type
 
-/api/v1/:id?strongest
+/api/v1/:poketype/strongest
 will return strongest pokemon for specified type
 
-/api/v1/:id?weakest
+/api/v1/:poketype/weakest
 will return weakest pokemon for specified type
 
-/api/v1/advantage/:id
+/api/v1/advantage/:poketype
 get all pokemon that are weak against specified type
 
-/api/v1/advantage/:id?strongest
+/api/v1/advantage/:poketype/strongest
 get strongest pokemon that is weak against specified type
 
-/api/v1/advantage/:id?weakest
+/api/v1/advantage/:poketype/weakest
 get weakest pokemon that is weak against specified type
 
 /api/v1/newtype
