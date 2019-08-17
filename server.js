@@ -152,13 +152,20 @@ app.post('/api/v1/newtype', (request, response) => {
   const { name, good_against } = request.body;
   const newType = {id:id, name: name, good_against: good_against};
   console.log(request.body)
-  checkExisting('type', name)
+  // checkExisting('type', name)
+  database('type').select().where({name: name})
+  .then((res) => {
+    if(res.length === 0) {
   database('type').insert(newType)
   .then(() => database('type').select().where({name: name}))
     .then(res => response.status(201).json(res))
     .catch(error => response.status(500).json(error))
+  } else {
+    response.status(400).json('type already exists')
+  }
   // must check for existing type
   // must add error for not enough entry data
+})
 })
 
 // localhost3000/:id/newpokemon
@@ -175,8 +182,12 @@ app.post('/api/v1/newpokemon', (request, response) => {
     speed: speed
   };
   console.log(newPokemon)
-  if(checkExisting('pokemon', name) !== 0) {
-    console.log('check pokemon', checkExisting('pokemon', name))
+  // if(checkExisting('pokemon', name) !== 0) {
+
+  database('pokemon').select().where({name: name})
+    .then(currentPokemon => {
+      console.log(currentPokemon.length)
+      if(currentPokemon.length === 0) {
     database('type').select().where({name: type})
     .then((res) => {
       if(res.length) {
@@ -192,7 +203,7 @@ app.post('/api/v1/newpokemon', (request, response) => {
     response.status(400).json(`Pokemon ${name} already exists`)
   }
 
-})
+})})
 
 // localhost3000/remove
 // removes a pokemon or a type
@@ -201,13 +212,14 @@ app.delete('/api/v1', (request, response) => {
 
   database(type).select().where({name: name})
     .then(res => {
-    if(res.length > 0) {
+      console.log(res)
+    // if(res.length > 0) {
       database(type).where({name: name}).del()
         .then((res) => response.status(202).json(res))
         .then(error => response.status(500).json(error))
-    } else {
-      response.status(400).json(`${type} with name ${name} does not exist`)
-    }
+    // } else {
+    //   response.status(400).json(`${type} with name ${name} does not exist`)
+    // }
   })
   
 })
