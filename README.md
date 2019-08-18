@@ -1,7 +1,7 @@
 # Build Your Own Backend
 
 ## Sumary
-A restful API created with Node/Express, Knex, and PostgreSQL, to document any and all pokemon by type. User can view, add, and delete pokemon types, and pokemon.
+A restful API created with Node/Express, Knex, and PostgreSQL, to document any and all pokemon by type. User can view, add, and delete pokemon types, and pokemon. BYOB is live on Heroku at https://pure-stream-85311.herokuapp.com.
 
 ### Learning Goals
 I had 7 days to find data to use in a one to many relational database and, learn enough Node/Express, Knex, and PostgreSQL to build a functioning restful API with profesional documentation and error messages.
@@ -25,25 +25,25 @@ All GET requests will return an array of objects like this
 ]
 ```
 
-http://localhost:3000/api/v1/type_list
+https://pure-stream-85311.herokuapp.com/api/v1/type_list
 will return all documented types of pokemon
 
-http://localhost:3000/api/v1/:poketype
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype
 will return all pokemon by type
 
-http://localhost:3000/api/v1/:poketype/strongest
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype/strongest
 will return strongest pokemon for specified type
 
-http://localhost:3000/api/v1/:poketype/weakest
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype/weakest
 will return weakest pokemon for specified type
 
-http://localhost:3000/api/v1/advantage/:poketype
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype
 get all pokemon that are weak against specified type
 
-http://localhost:3000/api/v1/advantage/:poketype/strongest
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/strongest
 get strongest pokemon that is weak against specified type
 
-http://localhost:3000/api/v1/advantage/:poketype/weakest
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/weakest
 get weakest pokemon that is weak against specified type
 
 ### POST
@@ -62,7 +62,7 @@ example response with 400 error
 "Body value of <name> should be a string greater than 0"
 ```
 
-http://localhost:3000/api/v1/newtype
+https://pure-stream-85311.herokuapp.com/api/v1/newtype
 add a new type of pokemon
 
   example body 
@@ -86,7 +86,7 @@ add a new type of pokemon
 ]
 ```
 
-http://localhost:3000/api/v1/newpokemon
+https://pure-stream-85311.herokuapp.com/api/v1/newpokemon
 add new pokemon to specified type
 
 example body 
@@ -118,7 +118,7 @@ example body
 
 ### DELETE
 
-http://localhost:3000/api/v1
+https://pure-stream-85311.herokuapp.com/api/v1
 removes a pokemon or a type
 
 example body 
