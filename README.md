@@ -26,6 +26,7 @@ All GET requests will return an array of objects like this
 ```
 
 https://pure-stream-85311.herokuapp.com/api/v1/type_list
+
 Will return all documented types of pokemon
 
 https://pure-stream-85311.herokuapp.com/api/v1/:poketype
