@@ -28,22 +28,22 @@ All GET requests will return an array of objects like this
 https://pure-stream-85311.herokuapp.com/api/v1/type_list<br/>
 Will return all documented types of pokemon
 
-https://pure-stream-85311.herokuapp.com/api/v1/:poketype
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype<br/>
 Will return all pokemon by type
 
-https://pure-stream-85311.herokuapp.com/api/v1/:poketype/strongest
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype/strongest<br/>
 Will return strongest pokemon for specified type
 
-https://pure-stream-85311.herokuapp.com/api/v1/:poketype/weakest
+https://pure-stream-85311.herokuapp.com/api/v1/:poketype/weakest<br/>
 Will return weakest pokemon for specified type
 
-https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype<br/>
 Will return all pokemon that are weak against specified type
 
-https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/strongest
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/strongest<br/>
 Will return the strongest pokemon that is weak against specified type
 
-https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/weakest
+https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/weakest<br/>
 Will return the weakest pokemon that is weak against specified type
 
 ### POST
@@ -62,7 +62,7 @@ example response with 400 error
 "Body value of <name> should be a string greater than 0"
 ```
 
-https://pure-stream-85311.herokuapp.com/api/v1/newtype
+https://pure-stream-85311.herokuapp.com/api/v1/newtype<br/>
 add a new type of pokemon
 
   example body 
@@ -86,7 +86,7 @@ add a new type of pokemon
 ]
 ```
 
-https://pure-stream-85311.herokuapp.com/api/v1/newpokemon
+https://pure-stream-85311.herokuapp.com/api/v1/newpokemon<br/>
 add new pokemon to specified type
 
 example body 
@@ -118,7 +118,7 @@ example body
 
 ### DELETE
 
-https://pure-stream-85311.herokuapp.com/api/v1
+https://pure-stream-85311.herokuapp.com/api/v1<br/>
 removes a pokemon or a type
 
 example body 
