@@ -63,7 +63,7 @@ example response with 400 error
 ```
 
 https://pure-stream-85311.herokuapp.com/api/v1/newtype<br/>
-add a new type of pokemon
+Add a new type of pokemon, type must be made before pokemon can be assigned a new type
 
   example body 
   ```
@@ -87,7 +87,7 @@ add a new type of pokemon
 ```
 
 https://pure-stream-85311.herokuapp.com/api/v1/newpokemon<br/>
-add new pokemon to specified type
+Add new pokemon to specified type, new types need to be made before pokemon.
 
 example body 
 ```
