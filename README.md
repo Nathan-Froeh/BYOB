@@ -4,6 +4,20 @@ Build Your Own Backend
 ## Endpoints
 
 ### GET
+
+All GET requests will return an array of objects like this
+```[
+	{
+        "id": 188,
+        "name": "Vulpix",
+        "hp": "38",
+        "attack": "41",
+        "defense": "40",
+        "speed": "65",
+        "type_id": 1437
+    }
+]```
+
 http://localhost:3000/api/v1/:poketype
 will return all pokemon by type
 
