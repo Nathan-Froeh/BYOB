@@ -20,6 +20,9 @@ All GET requests will return an array of objects like this
 ]
 ```
 
+http://localhost:3000/api/v1/type_list
+will return all documented types of pokemon
+
 http://localhost:3000/api/v1/:poketype
 will return all pokemon by type
 
