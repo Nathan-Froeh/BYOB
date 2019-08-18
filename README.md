@@ -43,12 +43,17 @@ get weakest pokemon that is weak against specified type
 http://localhost:3000/api/v1/newtype
 add a new type of pokemon
 
-  example body ```{
+  example body 
+  ```
+  {
 	"name": "Ginge",
 	"good_against": "Dragon"
-}```
+}
+```
 
-  example response ```[
+  example response 
+  ```
+  [
     {
         "id": 1446,
         "name": "Ginge",
@@ -56,7 +61,8 @@ add a new type of pokemon
         "updated_at": "2019-08-17T22:29:20.483Z",
         "good_against": "Dragon"
     }
-]```
+]
+```
 
 http://localhost:3000/api/v1/newpokemon
 add new pokemon to specified type
