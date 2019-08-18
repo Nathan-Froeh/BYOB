@@ -4,7 +4,7 @@
 A restful API created with Node/Express, Knex, and PostgreSQL, to document any and all pokemon by type. User can view, add, and delete pokemon types, and pokemon. BYOB is live on Heroku at https://pure-stream-85311.herokuapp.com.
 
 ### Learning Goals
-I had 7 days to find data to use in a one to many relational database and, learn enough Node/Express, Knex, and PostgreSQL to build a functioning restful API with profesional documentation and error messages.
+I had 6 days to find data to use in a one-many relational database and, learn enough Node/Express, Knex, and PostgreSQL to build a functioning restful API with profesional documentation and error messages.
 
 ## Endpoints
 
