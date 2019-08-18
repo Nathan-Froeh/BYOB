@@ -1,5 +1,10 @@
-# BYOB
-Build Your Own Backend
+# Build Your Own Backend
+
+## Sumary
+A restful API created with Node/Express, Knex, and PostgreSQL, to document any and all pokemon by type. User can view, add, and delete pokemon types, and pokemon.
+
+### Learning Goals
+I had 7 days to find data to use in a one to many relational database and, learn enough Node/Express, Knex, and PostgreSQL to build a functioning restful API with profesional documentation and error messages.
 
 ## Endpoints
 
