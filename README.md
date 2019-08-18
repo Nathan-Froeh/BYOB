@@ -45,7 +45,35 @@ add a new type of pokemon
 http://localhost:3000/api/v1/newpokemon
 add new pokemon to specified type
 
+example body ```{
+	"type": "Ginge",
+	"name": "Nathan",
+	"hp": "200",
+	"attack": "200",
+	"defense": "200",
+	"speed": "200"
+}```
+
+  example response ```[
+    {
+        "id": 313,
+        "name": "Nathan",
+        "hp": "200",
+        "attack": "200",
+        "defense": "200",
+        "speed": "200",
+        "type_id": 1446
+    }
+]```
+
 ### DELETE
 
 http://localhost:3000/api/v1
 removes a pokemon or a type
+
+example body ```{
+	"name": "Ginge",
+	"type": "type"
+}```
+
+example response ```1```
