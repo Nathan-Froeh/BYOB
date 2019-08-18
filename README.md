@@ -40,6 +40,20 @@ get weakest pokemon that is weak against specified type
 
 ### POST
 
+All POST requests must be supplied with a json object and each key may only be a string. Failure to do so will result in an error message.
+
+example body
+```
+{
+	"name": "",
+	"good_against": "Dragon"
+}
+```
+example response with 400 error
+```
+"Body value of <name> should be a string greater than 0"
+```
+
 http://localhost:3000/api/v1/newtype
 add a new type of pokemon
 
