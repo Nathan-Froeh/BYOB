@@ -26,25 +26,25 @@ All GET requests will return an array of objects like this
 ```
 
 https://pure-stream-85311.herokuapp.com/api/v1/type_list
-will return all documented types of pokemon
+Will return all documented types of pokemon
 
 https://pure-stream-85311.herokuapp.com/api/v1/:poketype
-will return all pokemon by type
+Will return all pokemon by type
 
 https://pure-stream-85311.herokuapp.com/api/v1/:poketype/strongest
-will return strongest pokemon for specified type
+Will return strongest pokemon for specified type
 
 https://pure-stream-85311.herokuapp.com/api/v1/:poketype/weakest
-will return weakest pokemon for specified type
+Will return weakest pokemon for specified type
 
 https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype
-get all pokemon that are weak against specified type
+Will return all pokemon that are weak against specified type
 
 https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/strongest
-get strongest pokemon that is weak against specified type
+Will return the strongest pokemon that is weak against specified type
 
 https://pure-stream-85311.herokuapp.com/api/v1/advantage/:poketype/weakest
-get weakest pokemon that is weak against specified type
+Will return the weakest pokemon that is weak against specified type
 
 ### POST
 
