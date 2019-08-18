@@ -12,7 +12,7 @@ app.listen(app.get('port'), () => {
   console.log(`App running on port ${app.get('port')}.`)
 })
 
-app.get('/', (request, response) => {
+app.get('/api/v1/type_list', (request, response) => {
   database('type').select()
     .then((types) => {
       response.status(200).json(types)
