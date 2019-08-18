@@ -6,8 +6,9 @@ Build Your Own Backend
 ### GET
 
 All GET requests will return an array of objects like this
-```[
-	{
+```
+[
+    {
         "id": 188,
         "name": "Vulpix",
         "hp": "38",
@@ -15,8 +16,9 @@ All GET requests will return an array of objects like this
         "defense": "40",
         "speed": "65",
         "type_id": 1437
-    }
-]```
+    },
+]
+```
 
 http://localhost:3000/api/v1/:poketype
 will return all pokemon by type
